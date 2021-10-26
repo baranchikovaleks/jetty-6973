@@ -5,6 +5,7 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.util.component.LifeCycle;
 
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
@@ -27,14 +28,18 @@ public class Main {
         server.start();
 
 
+        sendRequest(request);
+
+        // just put some code here so we have something after sending request
+        System.out.println(Math.PI * 10 * 10);
+    }
+
+    private static void sendRequest(byte[] request) throws IOException {
         Socket socket = new Socket("localhost", 8180);
         OutputStream outputStream = socket.getOutputStream();
         DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
         dataOutputStream.write(request);
         dataOutputStream.flush();
-        dataOutputStream.close();
-
-        socket.close();
     }
 
     private static class CustomRequestLog extends RequestLogImpl implements LifeCycle {
