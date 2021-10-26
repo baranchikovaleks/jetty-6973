@@ -32,9 +32,6 @@ public class Main {
         DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
         dataOutputStream.write(request);
         dataOutputStream.flush();
-        dataOutputStream.close();
-
-        socket.close();
     }
 
     private static class CustomRequestLog extends RequestLogImpl implements LifeCycle {
